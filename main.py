@@ -2,8 +2,28 @@
 # Start: 14/4/2023  End: //
 # "Space Invaders" like game
 
+'''
+To do list:
+
+  - exit btn
+  - char sprites
+  - plan layout/placement
+  - enemies+movement sequence
+  - barriers
+  - player
+  - enemy bullets
+  - player bullets
+  - damage
+  - win/lose
+  - efx
+  - pause
+  - menu
+  - keybinds
+
+'''
+
 import pygame as pg, sys
-from screeninfo import get_monitors # pip install screeninfo
+from screeninfo import get_monitors #pip install screeninfo
 
 
 # Game Setup
@@ -18,10 +38,11 @@ WINDOW_HEIGHT = int((str(get_monitors()).split(","))[3][8:])
 window = pg.display.set_mode((WINDOW_WIDTH,WINDOW_HEIGHT), pg.FULLSCREEN)
 pg.display.set_caption("Title")
 
+
 def display():
     window.fill((255,255,255)) #White background
     
-   
+
 while True:
     display()
     for event in pg.event.get():

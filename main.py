@@ -22,7 +22,7 @@ To do list:
 
 '''
 
-import pygame as pg, sys
+import pygame as pg, sys, button as btn
 from screeninfo import get_monitors #pip install screeninfo
 
 
@@ -42,7 +42,11 @@ pg.display.set_caption("Title")
 def display():
     window.fill((255,255,255)) #White background
 
-    
+def exit():
+  pg.quit() 
+  sys.exit()
+
+btn(30, 30, 400, 100, 'Button One (onePress)', exit )   
 
 while True:
     display()

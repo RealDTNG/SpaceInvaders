@@ -41,15 +41,18 @@ pg.display.set_caption("Title")
 
 def display():
     window.fill((255,255,255)) #White background
+
     
 
 while True:
     display()
     for event in pg.event.get():
-      # if user  QUIT then the screen will close 
-        if event.type == pg.QUIT:
+        if event.type == pg.QUIT:# if user  QUIT then the screen will close 
             pg.quit()
             sys.exit()
-   
+        key_input = pg.key.get_pressed()
+        if key_input[pg.K_q]:
+            pg.quit()
+            sys.exit()
     pg.display.update() #update the display
     fpsClock.tick(fps) #speed of redraw

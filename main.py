@@ -2,30 +2,30 @@
 # Start: 14/4/2023  End: //
 # "Space Invaders" like game
 
-import pygame as py, sys
+import pygame as pg, sys
 
 
 # Game Setup
-py.init()
+pg.init()
 fps = 60
-fpsClock = py.time.Clock()
+fpsClock = pg.time.Clock()
 WINDOW_WIDTH = 500
 WINDOW_HEIGHT = 500
 
 
 #Setup of Starting objects
-window = py.display.set_mode((WINDOW_WIDTH,WINDOW_HEIGHT), py.HWSURFACE)
-py.display.set_caption("Title")
+window = pg.display.set_mode((WINDOW_WIDTH,WINDOW_HEIGHT), pg.HWSURFACE)
+pg.display.set_caption("Title")
 def display():
     window.fill((255,255,255)) #White background
    
 while True:
     display()
-    for event in py.event.get():
-      # if user  QUIT then the screen will close
-        if event.type == py.QUIT:
-            py.quit()
+    for event in pg.event.get():
+      # if user  QUIT then the screen will close 
+        if event.type == pg.QUIT:
+            pg.quit()
             sys.exit()
    
-    py.display.update() #update the display
+    pg.display.update() #update the display
     fpsClock.tick(fps) #speed of redraw

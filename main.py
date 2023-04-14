@@ -10,8 +10,8 @@ from screeninfo import get_monitors # pip install screeninfo
 pg.init()
 fps = 60
 fpsClock = pg.time.Clock()
-WINDOW_WIDTH = 600
-WINDOW_HEIGHT = 500
+WINDOW_WIDTH = int((str(get_monitors()).split(","))[2][7:])
+WINDOW_HEIGHT = int((str(get_monitors()).split(","))[3][8:])
 
 
 #Setup of Starting objects

@@ -3,21 +3,24 @@
 # "Space Invaders" like game
 
 import pygame as pg, sys
+from screeninfo import get_monitors # pip install screeninfo
 
 
 # Game Setup
 pg.init()
 fps = 60
 fpsClock = pg.time.Clock()
-WINDOW_WIDTH = 500
+WINDOW_WIDTH = 600
 WINDOW_HEIGHT = 500
 
 
 #Setup of Starting objects
-window = pg.display.set_mode((WINDOW_WIDTH,WINDOW_HEIGHT), pg.HWSURFACE)
+window = pg.display.set_mode((WINDOW_WIDTH,WINDOW_HEIGHT), pg.FULLSCREEN)
 pg.display.set_caption("Title")
+
 def display():
     window.fill((255,255,255)) #White background
+    
    
 while True:
     display()

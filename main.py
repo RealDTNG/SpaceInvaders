@@ -8,6 +8,7 @@ To do list:
   - exit btn
   - char sprites
   - plan layout/placement
+    > 900 x 1028 H
   - enemies+movement sequence
   - barriers
   - player
@@ -16,6 +17,7 @@ To do list:
   - damage
   - win/lose
   - efx
+    > change icon
   - pause
   - menu
   - keybinds
@@ -40,9 +42,8 @@ pg.display.set_caption("Title")
 
 
 def display():
-    window.fill((255,255,255)) #White background
+    window.fill((26,26,34)) #Black background
 
-    
 
 while True:
     display()

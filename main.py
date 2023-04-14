@@ -19,7 +19,6 @@ py.display.set_caption("Title")
 def display():
     window.fill((255,255,255)) #White background
    
-   
 while True:
     display()
     for event in py.event.get():

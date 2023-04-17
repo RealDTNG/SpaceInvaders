@@ -29,7 +29,7 @@ class Button():
 
         self.alreadyPressed = False
 
-    def process(self):
+    def process(self,window):
 
         mousePos = pygame.mouse.get_pos()
         
@@ -54,4 +54,4 @@ class Button():
             self.buttonRect.width/2 - self.buttonSurf.get_rect().width/2,
             self.buttonRect.height/2 - self.buttonSurf.get_rect().height/2
         ])
-        self.window.blit(self.buttonSurface, self.buttonRect)
+        window.blit(self.buttonSurface, self.buttonRect)

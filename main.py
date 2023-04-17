@@ -5,22 +5,22 @@
 '''
 To do list:
 
-  - exit btn
-  - char sprites
-  - plan layout/placement
-    > 900 x 1028 H
-  - enemies+movement sequence
-  - barriers
-  - player
-  - enemy bullets
-  - player bullets
-  - damage
-  - win/lose
-  - efx
-    > change icon
-  - pause
-  - menu
-  - keybinds
+  - exit btn                      > DONE
+  - char sprites                  > To Do
+  - plan layout/placement         > To Do
+    > 900 x 1028 H                < Current Length and Width
+  - enemies+movement sequence     > To Do
+  - barriers                      > To Do
+  - player                        > To Do
+  - enemy bullets                 > To Do
+  - player bullets                > To Do
+  - damage                        > To Do
+  - win/lose                      > To Do
+  - efx                           > To Do
+    > change icon                 < Not Set
+  - pause                         > To Do
+  - menu                          > To Do
+  - keybinds                      > To Do
 
 '''
 
@@ -45,14 +45,13 @@ def exit():
 #Setup of Starting objects
 window = pg.display.set_mode((WINDOW_WIDTH,WINDOW_HEIGHT), pg.FULLSCREEN)
 pg.display.set_caption("Title")
-btn1 = Button(30, 30, 400, 100, 'Button One ', exit)
+btn1 = Button(30, 30, 400, 100, 'EXIT ', exit)
 
 
 def display():
     window.fill((26,26,34)) #Black background
-    btn1.Butoon
+    btn1.process(window)
     
-      
 
 while True:
     display()
@@ -61,8 +60,5 @@ while True:
             pg.quit()
             sys.exit()
         key_input = pg.key.get_pressed()
-        if key_input[pg.K_q]:
-            pg.quit()
-            sys.exit()
     pg.display.update() #update the display
     fpsClock.tick(fps) #speed of redraw

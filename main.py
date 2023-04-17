@@ -36,6 +36,7 @@ fpsClock = pg.time.Clock()
 WINDOW_WIDTH = int((str(get_monitors()).split(","))[2][7:])
 WINDOW_HEIGHT = int((str(get_monitors()).split(","))[3][8:])
 
+
 def exit():
   pg.quit() 
   sys.exit()
@@ -49,7 +50,7 @@ btn1 = Button(30, 30, 400, 100, 'Button One ', exit)
 
 def display():
     window.fill((26,26,34)) #Black background
-    btn1.process()
+    btn1.Butoon
     
       
 

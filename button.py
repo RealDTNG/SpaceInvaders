@@ -3,7 +3,7 @@ import sys
 import pygame
 
 
-pygame.font.init
+pygame.font.init()
 font = pygame.font.SysFont('Arial', 40)
 
 class Button():
@@ -54,4 +54,4 @@ class Button():
             self.buttonRect.width/2 - self.buttonSurf.get_rect().width/2,
             self.buttonRect.height/2 - self.buttonSurf.get_rect().height/2
         ])
-        window.blit(self.buttonSurface, self.buttonRect)
+        self.window.blit(self.buttonSurface, self.buttonRect)

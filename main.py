@@ -5,8 +5,8 @@
 '''
 To do list:
 
-  - exit btn                      > DONE
-  - char sprites                  > To Do
+  - exit btn (Class)              > DONE
+  - char sprites (Class)          > To Do
   - plan layout/placement         > To Do
     > 900 x 1028 H                < Current Length and Width
   - enemies+movement sequence     > To Do
@@ -25,7 +25,7 @@ To do list:
 '''
 
 import pygame as pg, sys
-from  button import Button
+from  button_class import Button
 from screeninfo import get_monitors #pip install screeninfo
 
 

@@ -24,7 +24,8 @@ To do list:
 
 '''
 
-import pygame as pg, sys, button as btn
+import pygame as pg, sys
+from  button import Button
 from screeninfo import get_monitors #pip install screeninfo
 
 
@@ -35,21 +36,22 @@ fpsClock = pg.time.Clock()
 WINDOW_WIDTH = int((str(get_monitors()).split(","))[2][7:])
 WINDOW_HEIGHT = int((str(get_monitors()).split(","))[3][8:])
 
-
-#Setup of Starting objects
-window = pg.display.set_mode((WINDOW_WIDTH,WINDOW_HEIGHT), pg.FULLSCREEN)
-pg.display.set_caption("Title")
-
-
-def display():
-    window.fill((26,26,34)) #Black background
-
-
 def exit():
   pg.quit() 
   sys.exit()
 
-btn(30, 30, 400, 100, 'Button One (onePress)', exit )      
+
+#Setup of Starting objects
+window = pg.display.set_mode((WINDOW_WIDTH,WINDOW_HEIGHT), pg.FULLSCREEN)
+pg.display.set_caption("Title")
+btn1 = Button(30, 30, 400, 100, 'Button One ', exit)
+
+
+def display():
+    window.fill((26,26,34)) #Black background
+    btn1.process()
+    
+      
 
 while True:
     display()

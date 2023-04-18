@@ -9,7 +9,7 @@ To do list:
   - char sprites (Class)          > DONE
   - plan layout/placement         > CURRENT
     > 900 x 1028 H                < Current Length and Width
-  - enemies+movement sequence     > To Do
+  - enemies+movement sequence     > 50%
   - barriers                      > To Do
   - player                        > To Do
   - enemy bullets                 > To Do
@@ -73,12 +73,14 @@ red_group2 = pg.sprite.Group()
 blue_group1 = pg.sprite.Group()
 blue_group2 = pg.sprite.Group()
 player_group = pg.sprite.Group()
+player_shot_group = pg.sprite.Group()
 
 def player_init():
   global player_state, player
   player_state = True
   
-  player = player_(500, 500, 44, 32, player_s)
+  player = player_(400, 240, 44, 32, player_s)
+  player_group.add(player)
 
 def alian_green_group():
   global green_list
@@ -177,13 +179,16 @@ def display():
 
 while True:
     display()
+    pg.sprite.Group(red_group1).update()
+    player.move()
     for event in pg.event.get():
         if event.type == pg.QUIT:# if user  QUIT then the screen will close 
             pg.quit()
             sys.exit()
-        key_input = pg.key.get_pressed()
-        pg.sprite.Group(red_group1).update()
-        red_g7.alive=False
-        player.move()
+    gg= pg.sprite.spritecollide(player, red_group1, False, collided=pg.sprite.collide_mask)  
+    if len(gg) >0:
+      gg[0].alive=False
+    print(gg)
+    
     pg.display.update() #update the display
     fpsClock.tick(fps) #speed of redraw

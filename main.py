@@ -1,4 +1,4 @@
-# Dawson Hoyle, Dylan Baker
+#Dylan Baker
 # Start: 14/4/2023  End: //
 # "Space Invaders" like game
 
@@ -58,6 +58,9 @@ def exit():
 
 
 #Setup of Starting objects
+
+programIcon = pg.image.load('images/si_icon.png')
+pg.display.set_icon(programIcon)
 window = pg.display.set_mode((WINDOW_WIDTH,WINDOW_HEIGHT), pg.FULLSCREEN)
 pg.display.set_caption("Title")
 btn1 = Button(30, 30, 400, 100, 'EXIT ', exit)

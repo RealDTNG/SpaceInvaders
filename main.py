@@ -28,6 +28,7 @@ import pygame as pg, sys
 from  button_class import Button
 from screeninfo import get_monitors #pip install screeninfo
 from alian_test import alian
+from player_test import player_
 
 
 # Game Setup
@@ -71,8 +72,13 @@ red_group1 = pg.sprite.Group()
 red_group2 = pg.sprite.Group()
 blue_group1 = pg.sprite.Group()
 blue_group2 = pg.sprite.Group()
+player_group = pg.sprite.Group()
 
-
+def player_init():
+  global player_state, player
+  player_state = True
+  
+  player = player_(500, 500, 44, 32, player_s)
 
 def alian_green_group():
   global green_list
@@ -147,6 +153,7 @@ def alian_blue_group2():
   blue_group2.add(alian(950, 360, 44, 32, alian_b))
 
 
+player_init()
 alian_green_group()
 alian_red_group1()
 alian_red_group2()
@@ -165,6 +172,7 @@ def display():
     red_group2.draw(window)
     blue_group1.draw(window)
     blue_group2.draw(window)
+    player_group.draw(window)
     
 
 while True:
@@ -176,6 +184,6 @@ while True:
         key_input = pg.key.get_pressed()
         pg.sprite.Group(red_group1).update()
         red_g7.alive=False
-        
+        player.move()
     pg.display.update() #update the display
     fpsClock.tick(fps) #speed of redraw

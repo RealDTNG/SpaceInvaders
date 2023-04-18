@@ -1,6 +1,6 @@
 import pygame, sys
 
-class player(pygame.sprite.Sprite):
+class player_(pygame.sprite.Sprite):
     def __init__(self, startX,startY,width,height,image_load):
         super().__init__()
         self.image = pygame.transform.scale(image_load, (width, height)).convert_alpha()

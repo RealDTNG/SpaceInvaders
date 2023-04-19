@@ -201,9 +201,10 @@ def impact(group,alive_group):
   except:
     pass
     
-
+shot_time = 0
 while True:
     display()
+    shot_time += 1
     pg.sprite.Group(green_group).update()
     pg.sprite.Group(red_group1).update()
     pg.sprite.Group(red_group2).update()
@@ -211,13 +212,16 @@ while True:
     pg.sprite.Group(blue_group2).update()
     
     player_shot, player_x = player.move()
-    if player_shot == True:
-      shot1 = bullet(player_x, 800, 8, 28, player_s1)
+    if player_shot == True and shot_time>60:
+      shot1 = bullet(player_x+18, 780, 8, 28, player_s1)
       player_shot_group.add(shot1)
+      shot_time = 0
 
     try:
       for each in player_shot_group:
         each.move_play()
+        if each.rect.y <0:
+          each.kill()
     except:
       pass
     

@@ -29,6 +29,7 @@ from  button_class import Button
 from screeninfo import get_monitors #pip install screeninfo
 from alian_test import alian
 from player_test import player_
+from Bullets import bullet
 
 
 # Game Setup
@@ -79,7 +80,7 @@ def player_init():
   global player_state, player
   player_state = True
   
-  player = player_(400, 240, 44, 32, player_s)
+  player = player_(400, 900, 44, 32, player_s)
   player_group.add(player)
 
 def alian_green_group():
@@ -175,20 +176,22 @@ def display():
     blue_group1.draw(window)
     blue_group2.draw(window)
     player_group.draw(window)
+    player_shot_group.draw(window)
     
 
 while True:
     display()
     pg.sprite.Group(red_group1).update()
-    player.move()
+    player_shot, player_x = player.move()
+    if player_shot == True:
+      player_shot_group.add(bullet(player_x, 450, 8, 28, player_s1))
     for event in pg.event.get():
         if event.type == pg.QUIT:# if user  QUIT then the screen will close 
             pg.quit()
             sys.exit()
-    gg= pg.sprite.spritecollide(player, red_group1, False, collided=pg.sprite.collide_mask)  
-    if len(gg) >0:
-      gg[0].alive=False
-    print(gg)
+    red_colide= pg.sprite.spritecollide(player, red_group1, False, collided=pg.sprite.collide_mask)  
+    if len(red_colide) >0:
+      red_colide[0].alive=False
     
     pg.display.update() #update the display
     fpsClock.tick(fps) #speed of redraw

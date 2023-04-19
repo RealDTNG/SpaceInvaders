@@ -16,9 +16,11 @@ class player_(pygame.sprite.Sprite):
 
         self.rect.x += self.movex
         
-
-            
-
+        if key_input[pygame.K_SPACE]:
+            return True, self.rect.x
+        else:
+            return False, self.rect.x
+        
         
     def back(self):
         self.rect.x -= self.movex

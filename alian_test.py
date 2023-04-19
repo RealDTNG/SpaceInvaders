@@ -14,7 +14,7 @@ class alian(pygame.sprite.Sprite):
             
     def update(self):
         if self.alive == False and self.pop==False:
-            self.image = pygame.transform.scale(img_pop, (20, 20)).convert_alpha()
+            self.image = pygame.transform.scale(img_pop, (44, 32)).convert_alpha()
             self.mask  = pygame.mask.from_surface(self.image)
             self.count -= 1
             if self.count == 0:

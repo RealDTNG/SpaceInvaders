@@ -8,6 +8,6 @@ class bullet(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft=(startX,startY))
             
     def move_play(self): 
-        self.rect.y -= 2
+        self.rect.y -= 4
         
     

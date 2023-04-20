@@ -1,4 +1,4 @@
-#Dylan Baker
+# Dawson Hoyle
 # Start: 14/4/2023  End: //
 # "Space Invaders" like game
 
@@ -9,11 +9,11 @@ To do list:
   - char sprites (Class)          > DONE
   - plan layout/placement         > 50%
     > 900 x 1028 H                < Current Length and Width
-  - enemies+movement sequence     > 50%
+  - enemies+movement sequence     > 75%
   - barriers                      > To Do
-  - player                        > 50%
+  - player                        > 75%
   - enemy bullets                 > To Do
-  - player bullets                > 75%
+  - player bullets                > DONE
   - damage                        > To Do
   - win/lose                      > To Do
   - efx                           > To Do
@@ -38,6 +38,8 @@ fps = 60
 fpsClock = pg.time.Clock()
 WINDOW_WIDTH = int((str(get_monitors()).split(","))[2][7:])
 WINDOW_HEIGHT = int((str(get_monitors()).split(","))[3][8:])
+alian_move_type = False
+alian_speed = 1
 
 
 alian_b = pg.image.load('space_invaders_imgs/alian_blue.png')
@@ -198,22 +200,46 @@ def impact(group,alive_group):
         red_colide[0].alive=False
         each.kill()
         alive_group[red_colide[0]] = False
-  except:
+  except: 
     pass
+  
+def alian_move(group,first,last):
+  global alian_speed
+  bump = False
+  if last.rect.x>1050 and bump==False:  
+    alian_speed *= -1
+    for each in group:
+      each.rect.y += 10
+      each.rect.x += alian_speed
+    bump=True
+    
+  elif first.rect.x<400 and bump==False:  
+    alian_speed *= -1
+    for each in group:
+      each.rect.y += 10
+      each.rect.x += alian_speed
+    bump=True
+  else:
+    for each in group:
+      each.rect.x += alian_speed
+
+  display()
+ 
+
     
 shot_time = 0
 while True:
     display()
     shot_time += 1
-    pg.sprite.Group(green_group).update()
-    pg.sprite.Group(red_group1).update()
-    pg.sprite.Group(red_group2).update()
-    pg.sprite.Group(blue_group1).update()
-    pg.sprite.Group(blue_group2).update()
+    pg.sprite.Group(green_group).update(alian_move_type)
+    pg.sprite.Group(red_group1).update(alian_move_type)
+    pg.sprite.Group(red_group2).update(alian_move_type)
+    pg.sprite.Group(blue_group1).update(alian_move_type)
+    pg.sprite.Group(blue_group2).update(alian_move_type)
     
     player_shot, player_x = player.move()
-    if player_shot == True and shot_time>60:
-      shot1 = bullet(player_x+18, 780, 8, 28, player_s1)
+    if player_shot == True and shot_time>40:
+      shot1 = bullet(player_x+18, 780, 10, 28, player_s1)
       player_shot_group.add(shot1)
       shot_time = 0
 
@@ -234,6 +260,13 @@ while True:
     impact(red_group2, red_alive_list2)
     impact(blue_group1, blue_alive_list1)
     impact(blue_group2, blue_alive_list2)
+    
+    if alian_move_type == False:
+      alian_move(green_group,green_g1,green_g10)
+      alian_move(red_group1,red_g1,red_g10)
+      alian_move(red_group2,red_gg1,red_gg10)
+      alian_move(blue_group1,blue_g1,blue_g10)
+      alian_move(blue_group2,blue_gg1,blue_gg10)
     
     pg.display.update() #update the display
     fpsClock.tick(fps) #speed of redraw

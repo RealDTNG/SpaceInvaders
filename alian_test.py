@@ -16,7 +16,7 @@ class alian(pygame.sprite.Sprite):
         self.rect.x+=x
         self.rect.y+=y
             
-    def update(self, type):
+    def update(self, type1, type2):
         if self.alive == False and self.pop==False:
             self.image = pygame.transform.scale(img_pop, (44, 32)).convert_alpha()
             self.mask  = pygame.mask.from_surface(self.image)
@@ -26,9 +26,17 @@ class alian(pygame.sprite.Sprite):
         elif self.pop==True:
             self.image = pygame.transform.scale(img_clear, (20, 20)).convert_alpha()
             self.mask  = pygame.mask.from_surface(self.image)  
-          
-        if type == True:    
-            if self.rect.x > 1050:
+         
+        if type1 == False:  
+            if type2 == True:    
+                    self.movex = -self.movex
+                    self.rect.x += self.movex
+                    self.rect.y += 10
+            if type2 == False:
+                    self.rect.x += self.movex
+        
+        if type1 == True:    
+            if self.rect.x > 1100:
                 self.movex = -1
                 self.rect.x += -5
                 self.rect.y += 10
@@ -40,7 +48,6 @@ class alian(pygame.sprite.Sprite):
                 self.rect.x += self.movex
             else:
                 self.rect.x += self.movex 
-        
         return self.rect.x, self.rect.y
                
           

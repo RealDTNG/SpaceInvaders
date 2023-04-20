@@ -38,8 +38,13 @@ fps = 60
 fpsClock = pg.time.Clock()
 WINDOW_WIDTH = int((str(get_monitors()).split(","))[2][7:])
 WINDOW_HEIGHT = int((str(get_monitors()).split(","))[3][8:])
-alian_move_type = False
-alian_speed = 1
+alian_move_type = True
+move_alian = False
+toggle1_state = False
+toggle2_state = True
+playing = False
+btn_toggle_1_state = '#ffffff'
+btn_toggle_2_state = '#ffffff'
 
 
 alian_b = pg.image.load('space_invaders_imgs/alian_blue.png')
@@ -51,7 +56,6 @@ alian_s1 = pg.image.load('space_invaders_imgs/alian_shot_1.png')
 alian_s2 = pg.image.load('space_invaders_imgs/alian_shot_2.png')
 alian_s3 = pg.image.load('space_invaders_imgs/alian_shot_3.png')
 
-
 player_s = pg.image.load('space_invaders_imgs/player_ship.png')
 player_s1 = pg.image.load('space_invaders_imgs/player_shot.png')
 
@@ -59,17 +63,22 @@ player_s1 = pg.image.load('space_invaders_imgs/player_shot.png')
 def exit():
   pg.quit() 
   sys.exit()
+  
+def toggle1():
+  global toggle1_state, toggle2_state
+  toggle1_state = True
+  toggle2_state = False
+def toggle2():
+  global toggle1_state, toggle2_state
+  toggle1_state = False
+  toggle2_state = True
 
 
 #Setup of Starting objects
-
 programIcon = pg.image.load('images/si_icon.png')
 pg.display.set_icon(programIcon)
 window = pg.display.set_mode((WINDOW_WIDTH,WINDOW_HEIGHT), pg.FULLSCREEN)
 pg.display.set_caption("Title")
-btn1 = Button(30, 30, 400, 100, 'EXIT ', exit)
-
-
 green_group = pg.sprite.Group()
 red_group1 = pg.sprite.Group()
 red_group2 = pg.sprite.Group()
@@ -82,7 +91,8 @@ def player_init():
   global player_state, player
   player_state = True
   
-  player = player_(400, 800, 44, 32, player_s)
+  player = player_(725, 800, 44, 32, player_s)
+  player_group.empty()
   player_group.add(player)
 
 def alian_green_group():
@@ -100,6 +110,7 @@ def alian_green_group():
   green_g9 = alian(900, 200, 44, 32, alian_g)
   green_g10 = alian(950, 200, 44, 32, alian_g)
   
+  green_group.empty()
   green_group.add(green_g1,green_g2,green_g3,green_g4,green_g5,green_g6,green_g7,green_g8,green_g9,green_g10)
 
 def alian_red_group1():
@@ -116,6 +127,7 @@ def alian_red_group1():
   red_g9 = alian(900, 240, 44, 32, alian_r)
   red_g10 = alian(950, 240, 44, 32, alian_r)
 
+  red_group1.empty()
   red_group1.add(red_g1,red_g2,red_g3,red_g4,red_g5,red_g6,red_g7,red_g8,red_g9,red_g10)
 
 def alian_red_group2():
@@ -132,6 +144,7 @@ def alian_red_group2():
   red_gg9 = alian(900, 280, 44, 32, alian_r)
   red_gg10 = alian(950, 280, 44, 32, alian_r)
   
+  red_group2.empty()
   red_group2.add(red_gg1,red_gg2,red_gg3,red_gg4,red_gg5,red_gg6,red_gg7,red_gg8,red_gg9,red_gg10)
 
 def alian_blue_group1():
@@ -148,6 +161,7 @@ def alian_blue_group1():
   blue_g9 = alian(900, 320, 44, 32, alian_b)
   blue_g10 = alian(950, 320, 44, 32, alian_b)
   
+  blue_group1.empty()
   blue_group1.add(blue_g1,blue_g2,blue_g3,blue_g4,blue_g5,blue_g6,blue_g7,blue_g8,blue_g9,blue_g10)
 
 def alian_blue_group2():
@@ -165,31 +179,53 @@ def alian_blue_group2():
   blue_gg9 = alian(900, 360, 44, 32, alian_b)
   blue_gg10 = alian(950, 360, 44, 32, alian_b)
   
+  blue_group2.empty()
   blue_group2.add(blue_gg1,blue_gg2,blue_gg3,blue_gg4,blue_gg5,blue_gg6,blue_gg7,blue_gg8,blue_gg9,blue_gg10)
 
 
+def start():
+  global playing
+  playing = True
+  player_init()
+  alian_green_group()
+  alian_red_group1()
+  alian_red_group2()
+  alian_blue_group1()
+  alian_blue_group2()
 
-player_init()
-alian_green_group()
-alian_red_group1()
-alian_red_group2()
-alian_blue_group1()
-alian_blue_group2()
+btn1 = Button(30, 30, 400, 100, 'EXIT', exit)
+btn_toggle_1 = Button(30, 200, 150, 100, f'Alians \n1',toggle1)
+btn_toggle_2 = Button(180, 200, 150, 100, f'Alians \n2', toggle2)
 
+btn_start = Button(30, 300, 400, 100, 'Start', start)
 
 
 
 def display():
-    window.fill((26,26,34)) #Black background
-    btn1.process(window)
-
-    green_group.draw(window)
-    red_group1.draw(window)
-    red_group2.draw(window)
-    blue_group1.draw(window)
-    blue_group2.draw(window)
-    player_group.draw(window)
-    player_shot_group.draw(window)
+  global btn_toggle_1_state, btn_toggle_2_state, alian_move_type
+  window.fill((26,26,34)) #Black background
+  green_group.draw(window)
+  red_group1.draw(window)
+  red_group2.draw(window)
+  blue_group1.draw(window)
+  blue_group2.draw(window)
+  player_group.draw(window)
+  player_shot_group.draw(window)
+  
+  if toggle1_state == True:
+    btn_toggle_1_state = '#34eb64'
+    btn_toggle_2_state = '#e01f36'
+    alian_move_type = True
+  elif toggle2_state == True:
+    btn_toggle_2_state = '#34eb64'
+    btn_toggle_1_state = '#e01f36'
+    alian_move_type = False
+  
+  btn1.process(window)
+  if not playing:
+    btn_toggle_1.process(window,btn_toggle_1_state)
+    btn_toggle_2.process(window,btn_toggle_2_state)
+  btn_start.process(window)
     
     
 def impact(group,alive_group):
@@ -203,70 +239,54 @@ def impact(group,alive_group):
   except: 
     pass
   
-def alian_move(group,first,last):
-  global alian_speed
-  bump = False
-  if last.rect.x>1050 and bump==False:  
-    alian_speed *= -1
-    for each in group:
-      each.rect.y += 10
-      each.rect.x += alian_speed
-    bump=True
-    
-  elif first.rect.x<400 and bump==False:  
-    alian_speed *= -1
-    for each in group:
-      each.rect.y += 10
-      each.rect.x += alian_speed
-    bump=True
+
+def alian_move(first,last):
+  global move_alian
+  if last.rect.x>1100 or first.rect.x<400:  
+    move_alian = True
   else:
-    for each in group:
-      each.rect.x += alian_speed
-
-  display()
- 
-
+    move_alian = False
+  display() 
     
+
 shot_time = 0
 while True:
     display()
-    shot_time += 1
-    pg.sprite.Group(green_group).update(alian_move_type)
-    pg.sprite.Group(red_group1).update(alian_move_type)
-    pg.sprite.Group(red_group2).update(alian_move_type)
-    pg.sprite.Group(blue_group1).update(alian_move_type)
-    pg.sprite.Group(blue_group2).update(alian_move_type)
-    
-    player_shot, player_x = player.move()
-    if player_shot == True and shot_time>40:
-      shot1 = bullet(player_x+18, 780, 10, 28, player_s1)
-      player_shot_group.add(shot1)
-      shot_time = 0
+    if playing:
+      shot_time += 1
+      pg.sprite.Group(green_group).update(alian_move_type, move_alian)
+      pg.sprite.Group(red_group1).update(alian_move_type, move_alian)
+      pg.sprite.Group(red_group2).update(alian_move_type, move_alian)
+      pg.sprite.Group(blue_group1).update(alian_move_type, move_alian)
+      pg.sprite.Group(blue_group2).update(alian_move_type, move_alian)
+      
+      player_shot, player_x = player.move()
+      if player_shot == True and shot_time>40:
+        shot1 = bullet(player_x+18, 780, 10, 28, player_s1)
+        player_shot_group.add(shot1)
+        shot_time = 0
 
-    try:
-      for each in player_shot_group:
-        each.move_play()
-        if each.rect.y <0:
-          each.kill()
-    except:
-      pass
-    
+      try:
+        for each in player_shot_group:
+          each.move_play()
+          if each.rect.y <0:
+            each.kill()
+      except:
+        pass
+      
+      impact(green_group, green_alive_list)      
+      impact(red_group1, red_alive_list1)
+      impact(red_group2, red_alive_list2)
+      impact(blue_group1, blue_alive_list1)
+      impact(blue_group2, blue_alive_list2)
+      
+      #if alian_move_type == False:
+      alian_move(green_g1,green_g10)
+      
+      
     for event in pg.event.get():
-        if event.type == pg.QUIT:# if user  QUIT then the screen will close 
-          exit()
-          
-    impact(green_group, green_alive_list)      
-    impact(red_group1, red_alive_list1)
-    impact(red_group2, red_alive_list2)
-    impact(blue_group1, blue_alive_list1)
-    impact(blue_group2, blue_alive_list2)
-    
-    if alian_move_type == False:
-      alian_move(green_group,green_g1,green_g10)
-      alian_move(red_group1,red_g1,red_g10)
-      alian_move(red_group2,red_gg1,red_gg10)
-      alian_move(blue_group1,blue_g1,blue_g10)
-      alian_move(blue_group2,blue_gg1,blue_gg10)
+      if event.type == pg.QUIT:# if user  QUIT then the screen will close 
+        exit()
     
     pg.display.update() #update the display
     fpsClock.tick(fps) #speed of redraw

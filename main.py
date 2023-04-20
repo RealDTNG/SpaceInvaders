@@ -9,7 +9,7 @@ To do list:
   - char sprites (Class)          > DONE
   - plan layout/placement         > 50%
     > 900 x 1028 H                < Current Length and Width
-  - enemies+movement sequence     > 75%
+  - enemies+movement sequence     > DONE
   - barriers                      > To Do
   - player                        > 75%
   - enemy bullets                 > To Do
@@ -193,12 +193,11 @@ def start():
   alian_blue_group1()
   alian_blue_group2()
 
+
 btn1 = Button(30, 30, 400, 100, 'EXIT', exit)
 btn_toggle_1 = Button(30, 200, 150, 100, f'Alians \n1',toggle1)
 btn_toggle_2 = Button(180, 200, 150, 100, f'Alians \n2', toggle2)
-
 btn_start = Button(30, 300, 400, 100, 'Start', start)
-
 
 
 def display():
@@ -222,6 +221,7 @@ def display():
     alian_move_type = False
   
   btn1.process(window)
+  
   if not playing:
     btn_toggle_1.process(window,btn_toggle_1_state)
     btn_toggle_2.process(window,btn_toggle_2_state)
@@ -250,6 +250,9 @@ def alian_move(first,last):
     
 
 shot_time = 0
+
+
+
 while True:
     display()
     if playing:

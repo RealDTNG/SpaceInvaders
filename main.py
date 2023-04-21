@@ -234,33 +234,39 @@ def display():
     vid1.stop()
     vid2.play()
 
-  
   btn1.process(window)
   btn_start.process(window)
   
   if not playing:
     btn_toggle_1.process(window,btn_toggle_1_state)
     btn_toggle_2.process(window,btn_toggle_2_state)
-    if toggle1_state == True and vid1.is_playing == False:
-      vid1.restart()
-      vid1.play()
-    elif toggle1_state == True and vid1.is_playing == True:
-      vid1.draw_to(window, (30, 400))
-    
-    if toggle2_state == True and vid2.is_playing == False:
-      vid2.restart()
-      vid2.play()
-    elif toggle2_state == True and vid2.is_playing == True:
-      vid2.draw_to(window, (30, 400))
-    
+    try:
+      if toggle1_state == True and vid1.is_playing == False:
+        vid1.stop()
+        vid1.play()
+        vid1.mute()
+
+      elif toggle1_state == True and vid1.is_playing == True:
+        vid1.set_width(300)
+        vid1.set_height(150)
+        vid1.draw_to(window, (30, 400))
+      
+      if toggle2_state == True and vid2.is_playing == False:
+        vid2.stop()
+        vid2.play()
+        vid2.mute()
+
+      elif toggle2_state == True and vid2.is_playing == True:
+        vid2.draw_to(window, (30, 400))
+        vid2.set_width(300)
+        vid2.set_height(150)
+    except:
+      pass
   else:
     wall1=pg.draw.rect(window,(235, 247, 247),(1095,0,5,1000))
     wall2=pg.draw.rect(window,(235, 247, 247),(395,0,5,1000))
     
-    
-    
-    
-    
+
 def impact(group,alive_group):
   try:
     for each in player_shot_group:

@@ -1,6 +1,6 @@
 #                  Pygame Video Player                #
 #                LGPL 3.0 - Kadir Aksoy               #
-#       https://github.com/kadir014/pygamevideo       #
+#       https://github.com/kadir014/pygame-video       #
 
 
 import time

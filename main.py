@@ -241,10 +241,18 @@ def display():
   if not playing:
     btn_toggle_1.process(window,btn_toggle_1_state)
     btn_toggle_2.process(window,btn_toggle_2_state)
-    if toggle1_state == True and vid1.is_playing == True:
+    if toggle1_state == True and vid1.is_playing == False:
+      vid1.restart()
+      vid1.play()
+    elif toggle1_state == True and vid1.is_playing == True:
       vid1.draw_to(window, (30, 400))
+    
+    if toggle2_state == True and vid2.is_playing == False:
+      vid2.restart()
+      vid2.play()
     elif toggle2_state == True and vid2.is_playing == True:
       vid2.draw_to(window, (30, 400))
+    
   else:
     wall1=pg.draw.rect(window,(235, 247, 247),(1095,0,5,1000))
     wall2=pg.draw.rect(window,(235, 247, 247),(395,0,5,1000))

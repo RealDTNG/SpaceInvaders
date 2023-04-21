@@ -30,6 +30,7 @@ from screeninfo import get_monitors #pip install screeninfo
 from alian_test import alian
 from player_test import player_
 from Bullets import bullet
+from pygamevideo import Video
 
 
 # Game Setup
@@ -45,6 +46,9 @@ toggle2_state = True
 playing = False
 btn_toggle_1_state = '#ffffff'
 btn_toggle_2_state = '#ffffff'
+vid1 = Video("space_invaders_mp4s/alian1_move.mp4")
+vid2 = Video("space_invaders_mp4s/alian2_move.mp4")
+
 
 
 alian_b = pg.image.load('space_invaders_imgs/alian_blue.png')
@@ -75,8 +79,6 @@ def toggle2():
 
 
 #Setup of Starting objects
-programIcon = pg.image.load('images/si_icon.png')
-pg.display.set_icon(programIcon)
 window = pg.display.set_mode((WINDOW_WIDTH,WINDOW_HEIGHT), pg.FULLSCREEN)
 pg.display.set_caption("Title")
 green_group = pg.sprite.Group()
@@ -198,6 +200,12 @@ btn1 = Button(30, 30, 300, 100, 'EXIT', exit)
 btn_toggle_1 = Button(30, 200, 150, 100, f'Alians 1',toggle1)
 btn_toggle_2 = Button(180, 200, 150, 100, f'Alians 2', toggle2)
 btn_start = Button(30, 300, 300, 100, 'Start', start)
+vid1.mute()
+vid2.mute()
+vid1.set_width(300)
+vid2.set_width(300)
+vid1.set_height(150)
+vid2.set_height(150)
 
 
 def display():
@@ -211,24 +219,38 @@ def display():
   player_group.draw(window)
   player_shot_group.draw(window)
   
-  wall1=pg.draw.rect(window,(235, 247, 247),(1095,0,5,1000))
-  wall2=pg.draw.rect(window,(235, 247, 247),(395,0,5,1000))
+  
   
   if toggle1_state == True:
     btn_toggle_1_state = '#34eb64'
     btn_toggle_2_state = '#e01f36'
     alian_move_type = True
+    vid1.play()
+    vid2.stop()
   elif toggle2_state == True:
     btn_toggle_2_state = '#34eb64'
     btn_toggle_1_state = '#e01f36'
     alian_move_type = False
+    vid1.stop()
+    vid2.play()
+
   
   btn1.process(window)
+  btn_start.process(window)
   
   if not playing:
     btn_toggle_1.process(window,btn_toggle_1_state)
     btn_toggle_2.process(window,btn_toggle_2_state)
-  btn_start.process(window)
+    if toggle1_state == True and vid1.is_playing == True:
+      vid1.draw_to(window, (30, 400))
+    elif toggle2_state == True and vid2.is_playing == True:
+      vid2.draw_to(window, (30, 400))
+  else:
+    wall1=pg.draw.rect(window,(235, 247, 247),(1095,0,5,1000))
+    wall2=pg.draw.rect(window,(235, 247, 247),(395,0,5,1000))
+    
+    
+    
     
     
 def impact(group,alive_group):

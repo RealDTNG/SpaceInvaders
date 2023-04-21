@@ -36,7 +36,7 @@ class alian(pygame.sprite.Sprite):
                     self.rect.x += self.movex
         
         if type1 == True:    
-            if self.rect.x > 1100:
+            if self.rect.x > 1050:
                 self.movex = -1
                 self.rect.x += -5
                 self.rect.y += 10

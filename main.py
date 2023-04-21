@@ -13,13 +13,13 @@ To do list:
   - barriers                      > To Do
   - player                        > 75%
   - enemy bullets                 > To Do
-  - player bullets                > DONE
+  - player bullets                > 75%
   - damage                        > To Do
   - win/lose                      > To Do
   - efx                           > To Do
     > change icon                 < Not Set
   - pause                         > To Do
-  - menu                          > To Do
+  - menu                          > CURRENT TASK
   - keybinds                      > To Do
 
 '''
@@ -194,10 +194,10 @@ def start():
   alian_blue_group2()
 
 
-btn1 = Button(30, 30, 400, 100, 'EXIT', exit)
-btn_toggle_1 = Button(30, 200, 150, 100, f'Alians \n1',toggle1)
-btn_toggle_2 = Button(180, 200, 150, 100, f'Alians \n2', toggle2)
-btn_start = Button(30, 300, 400, 100, 'Start', start)
+btn1 = Button(30, 30, 300, 100, 'EXIT', exit)
+btn_toggle_1 = Button(30, 200, 150, 100, f'Alians 1',toggle1)
+btn_toggle_2 = Button(180, 200, 150, 100, f'Alians 2', toggle2)
+btn_start = Button(30, 300, 300, 100, 'Start', start)
 
 
 def display():
@@ -210,6 +210,9 @@ def display():
   blue_group2.draw(window)
   player_group.draw(window)
   player_shot_group.draw(window)
+  
+  wall1=pg.draw.rect(window,(235, 247, 247),(1095,0,5,1000))
+  wall2=pg.draw.rect(window,(235, 247, 247),(395,0,5,1000))
   
   if toggle1_state == True:
     btn_toggle_1_state = '#34eb64'
@@ -242,7 +245,7 @@ def impact(group,alive_group):
 
 def alian_move(first,last):
   global move_alian
-  if last.rect.x>1100 or first.rect.x<400:  
+  if last.rect.x>1050 or first.rect.x<400:  
     move_alian = True
   else:
     move_alian = False
@@ -250,7 +253,6 @@ def alian_move(first,last):
     
 
 shot_time = 0
-
 
 
 while True:

@@ -4,7 +4,7 @@ import pygame
 
 
 pygame.font.init()
-font = pygame.font.SysFont('Arial', 40)
+font = pygame.font.Font('slkscr.ttf', 30)
 
 class Button():
     def __init__(self, x, y, width, height, buttonText='Button', onclickFunction=None, onePress=False):

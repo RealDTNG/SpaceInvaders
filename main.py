@@ -25,7 +25,7 @@ To do list:
 
 '''
 
-import pygame as pg, sys
+import pygame as pg, sys, random
 from  button_class import Button
 from screeninfo import get_monitors #pip install screeninfo
 from alian_test import alian
@@ -106,6 +106,7 @@ bar_group2 = pg.sprite.Group()
 bar_group3 = pg.sprite.Group()
 player_group = pg.sprite.Group()
 player_shot_group = pg.sprite.Group()
+alian_shot_group = pg.sprite.Group()
 
 def player_init():
   global player_state, player
@@ -117,52 +118,52 @@ def player_init():
   
 def bar_group1_init():
   
-  bar1 = bar(663,670,176,128,top_center)
-  bar2 = bar(663,670,176,128,top_right)
-  bar3 = bar(663,670,176,128,top_left)
-  bar4 = bar(663,670,176,128,middle_center)
-  bar5 = bar(663,670,176,128,middle_left)
-  bar6 = bar(663,670,176,128,middle_right)
-  bar7 = bar(663,670,176,128,middle2_center)
-  bar8 = bar(663,670,176,128,middle2_left)
-  bar9 = bar(663,670,176,128,middle2_right)
-  bar10 = bar(663,670,176,128,bottom_center)
-  bar11 = bar(663,670,176,128,bottom_left)
-  bar12 = bar(663,670,176,128,bottom_right)
+  bar1 = bar(663,670,176,96,top_center)
+  bar2 = bar(663,670,176,96,top_right)
+  bar3 = bar(663,670,176,96,top_left)
+  bar4 = bar(663,670,176,96,middle_center)
+  bar5 = bar(663,670,176,96,middle_left)
+  bar6 = bar(663,670,176,96,middle_right)
+  bar7 = bar(663,670,176,96,middle2_center)
+  bar8 = bar(663,670,176,96,middle2_left)
+  bar9 = bar(663,670,176,96,middle2_right)
+  bar10 = bar(663,670,176,96,bottom_center)
+  bar11 = bar(663,670,176,96,bottom_left)
+  bar12 = bar(663,670,176,96,bottom_right)
   
   bar_group1.add(bar1,bar2,bar3,bar4,bar5,bar6,bar7,bar8,bar9, bar10, bar11, bar12)
   
 def bar_group2_init():
   
-  bar1 = bar(463,670,176,128,top_center)
-  bar2 = bar(463,670,176,128,top_right)
-  bar3 = bar(463,670,176,128,top_left)
-  bar4 = bar(463,670,176,128,middle_center)
-  bar5 = bar(463,670,176,128,middle_left)
-  bar6 = bar(463,670,176,128,middle_right)
-  bar7 = bar(463,670,176,128,middle2_center)
-  bar8 = bar(463,670,176,128,middle2_left)
-  bar9 = bar(463,670,176,128,middle2_right)
-  bar10 = bar(463,670,176,128,bottom_center)
-  bar11 = bar(463,670,176,128,bottom_left)
-  bar12 = bar(463,670,176,128,bottom_right)
+  bar1 = bar(463,670,176,96,top_center)
+  bar2 = bar(463,670,176,96,top_right)
+  bar3 = bar(463,670,176,96,top_left)
+  bar4 = bar(463,670,176,96,middle_center)
+  bar5 = bar(463,670,176,96,middle_left)
+  bar6 = bar(463,670,176,96,middle_right)
+  bar7 = bar(463,670,176,96,middle2_center)
+  bar8 = bar(463,670,176,96,middle2_left)
+  bar9 = bar(463,670,176,96,middle2_right)
+  bar10 = bar(463,670,176,96,bottom_center)
+  bar11 = bar(463,670,176,96,bottom_left)
+  bar12 = bar(463,670,176,96,bottom_right)
   
   bar_group2.add(bar1,bar2,bar3,bar4,bar5,bar6,bar7,bar8,bar9, bar10, bar11, bar12)
   
 def bar_group3_init():
   
-  bar1 = bar(863,670,176,128,top_center)
-  bar2 = bar(863,670,176,128,top_right)
-  bar3 = bar(863,670,176,128,top_left)
-  bar4 = bar(863,670,176,128,middle_center)
-  bar5 = bar(863,670,176,128,middle_left)
-  bar6 = bar(863,670,176,128,middle_right)
-  bar7 = bar(863,670,176,128,middle2_center)
-  bar8 = bar(863,670,176,128,middle2_left)
-  bar9 = bar(863,670,176,128,middle2_right)
-  bar10 = bar(863,670,176,128,bottom_center)
-  bar11 = bar(863,670,176,128,bottom_left)
-  bar12 = bar(863,670,176,128,bottom_right)
+  bar1 = bar(863,670,176,96,top_center)
+  bar2 = bar(863,670,176,96,top_right)
+  bar3 = bar(863,670,176,96,top_left)
+  bar4 = bar(863,670,176,96,middle_center)
+  bar5 = bar(863,670,176,96,middle_left)
+  bar6 = bar(863,670,176,96,middle_right)
+  bar7 = bar(863,670,176,96,middle2_center)
+  bar8 = bar(863,670,176,96,middle2_left)
+  bar9 = bar(863,670,176,96,middle2_right)
+  bar10 = bar(863,670,176,96,bottom_center)
+  bar11 = bar(863,670,176,96,bottom_left)
+  bar12 = bar(863,670,176,96,bottom_right)
   
   bar_group3.add(bar1,bar2,bar3,bar4,bar5,bar6,bar7,bar8,bar9, bar10, bar11, bar12)
 
@@ -370,15 +371,38 @@ def alian_move(first,last):
   else:
     move_alian = False
   display() 
-    
+  
 
 shot_time = 0
+alian_shot_time = 0
+group_check = 1
+
+
+def alian_shot(alive_group,group):
+  if shot_time>20:
+    new_random = random.randint(0,10+1)
+    if alive_group[new_random] == True:
+      tempx, tempy = group(new_random).x_y_return()
+      alian_shot1 = bullet(tempx+18, tempy, 10, 28, alian_s1)
+      alian_shot_group.add(alian_shot1)
+      shot_time = 20
+    else:
+      if group_check == 1:
+        alian_shot(blue_alive_list1,blue_group1)
+        group_check = 2
+      elif group_check == 2:
+        alian_shot(red_alive_list2,red_group2)
+        group_check = 3
+      elif group_check == 3:
+        alian_shot(red_alive_list1,red_group1)
+        group_check = 4
 
 
 while True:
     display()
     if playing:
       shot_time += 1
+      alian_shot_time += 1
       pg.sprite.Group(green_group).update(alian_move_type, move_alian)
       pg.sprite.Group(red_group1).update(alian_move_type, move_alian)
       pg.sprite.Group(red_group2).update(alian_move_type, move_alian)
@@ -391,10 +415,15 @@ while True:
         player_shot_group.add(shot1)
         shot_time = 0
 
+
       try:
         for each in player_shot_group:
           each.move_play()
           if each.rect.y <0:
+            each.kill()
+        for each in alian_shot_group:
+          each.move_alian()
+          if each.rect.y > 950:
             each.kill()
       except:
         pass
@@ -407,6 +436,9 @@ while True:
       bar_impact(bar_group1,player_shot_group)
       bar_impact(bar_group2,player_shot_group)
       bar_impact(bar_group3,player_shot_group)
+      bar_impact(bar_group1,alian_shot_group)
+      bar_impact(bar_group2,alian_shot_group)
+      bar_impact(bar_group3,alian_shot_group)
       
       #if alian_move_type == False:
       alian_move(green_g1,green_g10)

@@ -10,12 +10,13 @@ To do list:
   - plan layout/placement         > 50%
     > 900 x 1028 H                < Current Length and Width
   - enemies+movement sequence     > DONE
-  - barriers                      > To Do
+  - barriers                      > 75%
   - player                        > 75%
   - enemy bullets                 > To Do
   - player bullets                > 75%
   - damage                        > To Do
   - win/lose                      > To Do
+  - Bonus Ship                    > To Do
   - efx                           > To Do
     > change icon                 < Not Set
   - pause                         > To Do
@@ -30,6 +31,7 @@ from screeninfo import get_monitors #pip install screeninfo
 from alian_test import alian
 from player_test import player_
 from Bullets import bullet
+from bariars import bar 
 from pygamevideo import Video
 
 
@@ -46,8 +48,8 @@ toggle2_state = True
 playing = False
 btn_toggle_1_state = '#ffffff'
 btn_toggle_2_state = '#ffffff'
-vid1 = Video("space_invaders_mp4s/alian1_move.mp4")
-vid2 = Video("space_invaders_mp4s/alian2_move.mp4")
+vid2 = Video("space_invaders_mp4s/alian1_move.mp4")
+vid1 = Video("space_invaders_mp4s/alian2_move.mp4")
 
 
 
@@ -62,6 +64,19 @@ alian_s3 = pg.image.load('space_invaders_imgs/alian_shot_3.png')
 
 player_s = pg.image.load('space_invaders_imgs/player_ship.png')
 player_s1 = pg.image.load('space_invaders_imgs/player_shot.png')
+
+top_center = pg.image.load('space_invaders_imgs/top_center.png')
+top_right = pg.image.load('space_invaders_imgs/top_right.png')
+top_left = pg.image.load('space_invaders_imgs/top_left.png')
+middle_center = pg.image.load('space_invaders_imgs/middle_center.png')
+middle_right = pg.image.load('space_invaders_imgs/middle_right.png')
+middle_left = pg.image.load('space_invaders_imgs/middle_left.png')
+middle2_center = pg.image.load('space_invaders_imgs/middle2_center.png')
+middle2_right = pg.image.load('space_invaders_imgs/middle2_right.png')
+middle2_left = pg.image.load('space_invaders_imgs/middle2_left.png')
+bottom_center = pg.image.load('space_invaders_imgs/bottom_center.png')
+bottom_right = pg.image.load('space_invaders_imgs/bottom_right.png')
+bottom_left = pg.image.load('space_invaders_imgs/bottom_left.png')
 
 
 def exit():
@@ -86,6 +101,9 @@ red_group1 = pg.sprite.Group()
 red_group2 = pg.sprite.Group()
 blue_group1 = pg.sprite.Group()
 blue_group2 = pg.sprite.Group()
+bar_group1 = pg.sprite.Group()
+bar_group2 = pg.sprite.Group()
+bar_group3 = pg.sprite.Group()
 player_group = pg.sprite.Group()
 player_shot_group = pg.sprite.Group()
 
@@ -96,6 +114,57 @@ def player_init():
   player = player_(725, 800, 44, 32, player_s)
   player_group.empty()
   player_group.add(player)
+  
+def bar_group1_init():
+  
+  bar1 = bar(663,670,176,128,top_center)
+  bar2 = bar(663,670,176,128,top_right)
+  bar3 = bar(663,670,176,128,top_left)
+  bar4 = bar(663,670,176,128,middle_center)
+  bar5 = bar(663,670,176,128,middle_left)
+  bar6 = bar(663,670,176,128,middle_right)
+  bar7 = bar(663,670,176,128,middle2_center)
+  bar8 = bar(663,670,176,128,middle2_left)
+  bar9 = bar(663,670,176,128,middle2_right)
+  bar10 = bar(663,670,176,128,bottom_center)
+  bar11 = bar(663,670,176,128,bottom_left)
+  bar12 = bar(663,670,176,128,bottom_right)
+  
+  bar_group1.add(bar1,bar2,bar3,bar4,bar5,bar6,bar7,bar8,bar9, bar10, bar11, bar12)
+  
+def bar_group2_init():
+  
+  bar1 = bar(463,670,176,128,top_center)
+  bar2 = bar(463,670,176,128,top_right)
+  bar3 = bar(463,670,176,128,top_left)
+  bar4 = bar(463,670,176,128,middle_center)
+  bar5 = bar(463,670,176,128,middle_left)
+  bar6 = bar(463,670,176,128,middle_right)
+  bar7 = bar(463,670,176,128,middle2_center)
+  bar8 = bar(463,670,176,128,middle2_left)
+  bar9 = bar(463,670,176,128,middle2_right)
+  bar10 = bar(463,670,176,128,bottom_center)
+  bar11 = bar(463,670,176,128,bottom_left)
+  bar12 = bar(463,670,176,128,bottom_right)
+  
+  bar_group2.add(bar1,bar2,bar3,bar4,bar5,bar6,bar7,bar8,bar9, bar10, bar11, bar12)
+  
+def bar_group3_init():
+  
+  bar1 = bar(863,670,176,128,top_center)
+  bar2 = bar(863,670,176,128,top_right)
+  bar3 = bar(863,670,176,128,top_left)
+  bar4 = bar(863,670,176,128,middle_center)
+  bar5 = bar(863,670,176,128,middle_left)
+  bar6 = bar(863,670,176,128,middle_right)
+  bar7 = bar(863,670,176,128,middle2_center)
+  bar8 = bar(863,670,176,128,middle2_left)
+  bar9 = bar(863,670,176,128,middle2_right)
+  bar10 = bar(863,670,176,128,bottom_center)
+  bar11 = bar(863,670,176,128,bottom_left)
+  bar12 = bar(863,670,176,128,bottom_right)
+  
+  bar_group3.add(bar1,bar2,bar3,bar4,bar5,bar6,bar7,bar8,bar9, bar10, bar11, bar12)
 
 def alian_green_group():
   global green_alive_list,green_g1,green_g2,green_g3,green_g4,green_g5,green_g6,green_g7,green_g8,green_g9,green_g10
@@ -189,6 +258,9 @@ def start():
   global playing
   playing = True
   player_init()
+  bar_group1_init()
+  bar_group2_init()
+  bar_group3_init()
   alian_green_group()
   alian_red_group1()
   alian_red_group2()
@@ -218,6 +290,9 @@ def display():
   blue_group2.draw(window)
   player_group.draw(window)
   player_shot_group.draw(window)
+  bar_group1.draw(window)
+  bar_group2.draw(window)
+  bar_group3.draw(window)
   
   
   
@@ -278,6 +353,15 @@ def impact(group,alive_group):
   except: 
     pass
   
+def bar_impact(group,shot_group):
+  try:
+    for each in shot_group:
+      colide= pg.sprite.spritecollide(each, group, True, collided=pg.sprite.collide_mask)  
+      if len(colide) >0:
+        each.kill()
+  except: 
+    pass
+  
 
 def alian_move(first,last):
   global move_alian
@@ -320,9 +404,18 @@ while True:
       impact(red_group2, red_alive_list2)
       impact(blue_group1, blue_alive_list1)
       impact(blue_group2, blue_alive_list2)
+      bar_impact(bar_group1,player_shot_group)
+      bar_impact(bar_group2,player_shot_group)
+      bar_impact(bar_group3,player_shot_group)
       
       #if alian_move_type == False:
       alian_move(green_g1,green_g10)
+      if player.rect.x > 1050:
+        player.back()
+        display()
+      elif player.rect.x < 400:
+        player.back()
+        display()
       
       
     for event in pg.event.get():

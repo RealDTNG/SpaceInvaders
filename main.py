@@ -50,7 +50,8 @@ btn_toggle_1_state = '#ffffff'
 btn_toggle_2_state = '#ffffff'
 vid2 = Video("space_invaders_mp4s/alian1_move.mp4")
 vid1 = Video("space_invaders_mp4s/alian2_move.mp4")
-
+pg.font.init()
+my_font = pg.font.Font('slkscr.ttf', 30)
 
 
 alian_b = pg.image.load('space_invaders_imgs/alian_blue.png')
@@ -168,8 +169,8 @@ def bar_group3_init():
   bar_group3.add(bar1,bar2,bar3,bar4,bar5,bar6,bar7,bar8,bar9, bar10, bar11, bar12)
 
 def alian_green_group():
-  global green_alive_list,green_g1,green_g2,green_g3,green_g4,green_g5,green_g6,green_g7,green_g8,green_g9,green_g10
-  green_alive_list = [True,True,True,True,True,True,True,True,True,True]
+  global green_g1,green_g2,green_g3,green_g4,green_g5,green_g6,green_g7,green_g8,green_g9,green_g10
+
   
   green_g1 = alian(500, 200, 44, 32, alian_g)
   green_g2 = alian(550, 200, 44, 32, alian_g)
@@ -186,8 +187,8 @@ def alian_green_group():
   green_group.add(green_g1,green_g2,green_g3,green_g4,green_g5,green_g6,green_g7,green_g8,green_g9,green_g10)
 
 def alian_red_group1():
-  global red_alive_list1,red_g1,red_g2,red_g3,red_g4,red_g5,red_g6,red_g7,red_g8,red_g9,red_g10
-  red_alive_list1 = [True,True,True,True,True,True,True,True,True,True]
+  global red_g1,red_g2,red_g3,red_g4,red_g5,red_g6,red_g7,red_g8,red_g9,red_g10
+
   red_g1 = alian(500, 240, 44, 32, alian_r)
   red_g2 = alian(550, 240, 44, 32, alian_r)
   red_g3 = alian(600, 240, 44, 32, alian_r)
@@ -203,8 +204,8 @@ def alian_red_group1():
   red_group1.add(red_g1,red_g2,red_g3,red_g4,red_g5,red_g6,red_g7,red_g8,red_g9,red_g10)
 
 def alian_red_group2():
-  global red_alive_list2,red_gg1,red_gg2,red_gg3,red_gg4,red_gg5,red_gg6,red_gg7,red_gg8,red_gg9,red_gg10
-  red_alive_list2 = [True,True,True,True,True,True,True,True,True,True]
+  global red_gg1,red_gg2,red_gg3,red_gg4,red_gg5,red_gg6,red_gg7,red_gg8,red_gg9,red_gg10
+
   red_gg1 = alian(500, 280, 44, 32, alian_r)
   red_gg2 = alian(550, 280, 44, 32, alian_r)
   red_gg3 = alian(600, 280, 44, 32, alian_r)
@@ -220,8 +221,8 @@ def alian_red_group2():
   red_group2.add(red_gg1,red_gg2,red_gg3,red_gg4,red_gg5,red_gg6,red_gg7,red_gg8,red_gg9,red_gg10)
 
 def alian_blue_group1():
-  global blue_alive_list1,blue_g1,blue_g2,blue_g3,blue_g4,blue_g5,blue_g6,blue_g7,blue_g8,blue_g9,blue_g10
-  blue_alive_list1 = [True,True,True,True,True,True,True,True,True,True]
+  global blue_g1,blue_g2,blue_g3,blue_g4,blue_g5,blue_g6,blue_g7,blue_g8,blue_g9,blue_g10
+
   blue_g1 = alian(500, 320, 44, 32, alian_b)
   blue_g2 = alian(550, 320, 44, 32, alian_b)
   blue_g3 = alian(600, 320, 44, 32, alian_b)
@@ -237,9 +238,8 @@ def alian_blue_group1():
   blue_group1.add(blue_g1,blue_g2,blue_g3,blue_g4,blue_g5,blue_g6,blue_g7,blue_g8,blue_g9,blue_g10)
 
 def alian_blue_group2():
-  global blue_alive_list2,blue_gg1,blue_gg2,blue_gg3,blue_gg4,blue_gg5,blue_gg6,blue_gg7,blue_gg8,blue_gg9,blue_gg10
-  blue_alive_list2 = [True,True,True,True,True,True,True,True,True,True]
-  
+  global blue_gg1,blue_gg2,blue_gg3,blue_gg4,blue_gg5,blue_gg6,blue_gg7,blue_gg8,blue_gg9,blue_gg10
+
   blue_gg1 = alian(500, 360, 44, 32, alian_b)
   blue_gg2 = alian(550, 360, 44, 32, alian_b)
   blue_gg3 = alian(600, 360, 44, 32, alian_b)
@@ -291,6 +291,7 @@ def display():
   blue_group2.draw(window)
   player_group.draw(window)
   player_shot_group.draw(window)
+  alian_shot_group.draw(window)
   bar_group1.draw(window)
   bar_group2.draw(window)
   bar_group3.draw(window)
@@ -341,16 +342,16 @@ def display():
   else:
     wall1=pg.draw.rect(window,(235, 247, 247),(1095,0,5,1000))
     wall2=pg.draw.rect(window,(235, 247, 247),(395,0,5,1000))
+    window.blit(text_surface, (30,500))
     
 
-def impact(group,alive_group):
+def impact(group):
   try:
     for each in player_shot_group:
       red_colide= pg.sprite.spritecollide(each, group, False, collided=pg.sprite.collide_mask)  
       if len(red_colide) >0:
         red_colide[0].alive=False
         each.kill()
-        alive_group[red_colide[0]] = False
   except: 
     pass
   
@@ -373,33 +374,37 @@ def alian_move(first,last):
   display() 
   
 
-shot_time = 0
+shot_time = 40
 alian_shot_time = 0
 group_check = 1
+time_left_to_shoot = 0
 
 
-def alian_shot(alive_group,group):
-  if shot_time>20:
-    new_random = random.randint(0,10+1)
-    if alive_group[new_random] == True:
-      tempx, tempy = group(new_random).x_y_return()
-      alian_shot1 = bullet(tempx+18, tempy, 10, 28, alian_s1)
-      alian_shot_group.add(alian_shot1)
-      shot_time = 20
-    else:
-      if group_check == 1:
-        alian_shot(blue_alive_list1,blue_group1)
-        group_check = 2
-      elif group_check == 2:
-        alian_shot(red_alive_list2,red_group2)
-        group_check = 3
-      elif group_check == 3:
-        alian_shot(red_alive_list1,red_group1)
-        group_check = 4
-
+def alian_shot(group, new_random):
+  global alian_shot_time
+  if alian_shot_time>45:
+    try:
+        times = 0
+        for sprites in group:
+          times += 1
+          if sprites.alive == True:
+            if times == new_random:
+              tempx, tempy = sprites.x_y_return()
+              alian_shot1 = bullet(tempx+18, tempy+32, 10, 28, alian_s1)
+              alian_shot_group.add(alian_shot1)
+              alian_shot_time = 0
+          else:
+            return False
+    except:
+      pass
 
 while True:
     display()
+    if shot_time>40:
+      time_left_to_shoot = 0
+    else:
+      time_left_to_shoot = (shot_time-40)*-1
+    text_surface = my_font.render(f'Time Let To Shoot:{time_left_to_shoot}', False, (255, 255, 255))
     if playing:
       shot_time += 1
       alian_shot_time += 1
@@ -410,12 +415,23 @@ while True:
       pg.sprite.Group(blue_group2).update(alian_move_type, move_alian)
       
       player_shot, player_x = player.move()
+
       if player_shot == True and shot_time>40:
         shot1 = bullet(player_x+18, 780, 10, 28, player_s1)
         player_shot_group.add(shot1)
         shot_time = 0
 
+      random_alian = random.randint(0,10+1)
 
+      check = alian_shot(blue_group2,random_alian)
+      if check == False:
+        check = alian_shot(blue_group1,random_alian)
+        if check == False:
+          check = alian_shot(red_group2,random_alian)
+          if check == False:
+            check = alian_shot(red_group1,random_alian)
+            if check == False:
+              check = alian_shot(green_group,random_alian)
       try:
         for each in player_shot_group:
           each.move_play()
@@ -428,11 +444,11 @@ while True:
       except:
         pass
       
-      impact(green_group, green_alive_list)      
-      impact(red_group1, red_alive_list1)
-      impact(red_group2, red_alive_list2)
-      impact(blue_group1, blue_alive_list1)
-      impact(blue_group2, blue_alive_list2)
+      impact(green_group)      
+      impact(red_group1)
+      impact(red_group2)
+      impact(blue_group1)
+      impact(blue_group2)
       bar_impact(bar_group1,player_shot_group)
       bar_impact(bar_group2,player_shot_group)
       bar_impact(bar_group3,player_shot_group)

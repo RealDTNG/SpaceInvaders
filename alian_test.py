@@ -51,5 +51,6 @@ class alian(pygame.sprite.Sprite):
         return self.rect.x, self.rect.y
                
           
-        
+    def x_y_return(self):
+        return self.rect.x, self.rect.y
     

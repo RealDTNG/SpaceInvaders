@@ -20,27 +20,26 @@ class bullet(pygame.sprite.Sprite):
         self.rect.y += 4
         self.count -= 2
         if self.count == 0:
-            if self.image == 1:
+            if self.imag == 1:
                 self.image = pygame.transform.scale(alian_s2, (10, 28)).convert_alpha()
                 self.mask  = pygame.mask.from_surface(self.image)
                 self.count = 10
-                self.image = 2
-            elif self.image == 2:
+                self.imag = 2
+            elif self.imag == 2:
                 self.image = pygame.transform.scale(alian_s3, (10, 28)).convert_alpha()
                 self.mask  = pygame.mask.from_surface(self.image)
                 self.count = 10
-                self.image = 3
-            elif self.image == 3:
+                self.imag = 3
+            elif self.imag == 3:
                 self.image = pygame.transform.scale(alian_s2, (10, 28)).convert_alpha()
                 self.mask  = pygame.mask.from_surface(self.image)
                 self.count = 10
-                self.image = 4
-            elif self.image == 4:
+                self.imag = 4
+            elif self.imag == 4:
                 self.image = pygame.transform.scale(alian_s1, (10, 28)).convert_alpha()
                 self.mask  = pygame.mask.from_surface(self.image)
                 self.count = 10
-                self.image = 1
+                self.imag = 1
                 
-    def x_y_return(self):
-        return self.rect.x, self.rect.y
+
     

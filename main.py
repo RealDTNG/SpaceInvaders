@@ -7,14 +7,14 @@ To do list:
 
   - exit btn (Class)              > DONE
   - char sprites (Class)          > DONE
-  - plan layout/placement         > 50%
+  - plan layout/placement         > DONE
     > 900 x 1028 H                < Current Length and Width
   - enemies+movement sequence     > DONE
-  - barriers                      > 75%
+  - barriers                      > DONE
   - player                        > 75%
-  - enemy bullets                 > To Do
+  - enemy bullets                 > 75%
   - player bullets                > 75%
-  - damage                        > To Do
+  - damage                        > 50%
   - win/lose                      > To Do
   - Bonus Ship                    > To Do
   - efx                           > To Do
@@ -60,7 +60,6 @@ alian_r = pg.image.load('space_invaders_imgs/alian_red.png')
 alian_s = pg.image.load('space_invaders_imgs/alian_ship.png')
 alian_p = pg.image.load('space_invaders_imgs/alian_pop.png')
 alian_s1 = pg.image.load('space_invaders_imgs/alian_shot_1.png')
-alian_s2 = pg.image.load('space_invaders_imgs/alian_shot_2.png')
 alian_s3 = pg.image.load('space_invaders_imgs/alian_shot_3.png')
 
 player_s = pg.image.load('space_invaders_imgs/player_ship.png')
@@ -380,8 +379,9 @@ group_check = 1
 time_left_to_shoot = 0
 
 
-def alian_shot(group, new_random):
+def alian_shot(group):
   global alian_shot_time
+  new_random = random.randint(0,10+1)
   if alian_shot_time>45:
     try:
         times = 0
@@ -421,17 +421,17 @@ while True:
         player_shot_group.add(shot1)
         shot_time = 0
 
-      random_alian = random.randint(0,10+1)
+      
 
-      check = alian_shot(blue_group2,random_alian)
+      check = alian_shot(blue_group2)
       if check == False:
-        check = alian_shot(blue_group1,random_alian)
+        check = alian_shot(blue_group1)
         if check == False:
-          check = alian_shot(red_group2,random_alian)
+          check = alian_shot(red_group2)
           if check == False:
-            check = alian_shot(red_group1,random_alian)
+            check = alian_shot(red_group1)
             if check == False:
-              check = alian_shot(green_group,random_alian)
+              check = alian_shot(green_group)
       try:
         for each in player_shot_group:
           each.move_play()

@@ -3,7 +3,7 @@ img_clear = pygame.image.load("space_invaders_imgs/clear.png")
 img_pop = pygame.image.load("space_invaders_imgs/alian_pop.png")
 class alian(pygame.sprite.Sprite):
     
-    def __init__(self, startX,startY,width,height,image_load):
+    def __init__(self, startX,startY,width,height,image_load,value):
         super().__init__() 
         self.image = pygame.transform.scale(image_load, (width, height)).convert_alpha()
         self.mask  = pygame.mask.from_surface(self.image)
@@ -12,6 +12,7 @@ class alian(pygame.sprite.Sprite):
         self.pop =False
         self.count=20
         self.movex = 1
+        self.value = value
     def move(self,x,y):
         self.rect.x+=x
         self.rect.y+=y
@@ -50,7 +51,8 @@ class alian(pygame.sprite.Sprite):
                 self.rect.x += self.movex 
         return self.rect.x, self.rect.y
                
-          
     def x_y_return(self):
         return self.rect.x, self.rect.y
+    def return_value(self):
+        return self.value
     

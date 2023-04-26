@@ -286,11 +286,16 @@ def start():
   alian_blue_group2()
   player_life_check()
 
+def pause():
+  global playing_pause
+  playing_pause = True
+
 
 btn1 = Button(30, 30, 300, 100, 'EXIT', exit)
 btn_toggle_1 = Button(30, 200, 150, 100, f'Alians 1',toggle1)
 btn_toggle_2 = Button(180, 200, 150, 100, f'Alians 2', toggle2)
 btn_start = Button(30, 300, 300, 100, 'Start', start)
+btn_pause = Button(30, 500, 300, 100, 'Pause', pause)
 vid1.mute()
 vid2.mute()
 vid1.set_width(300)
@@ -337,6 +342,7 @@ def display():
     btn_toggle_1.process(window,btn_toggle_1_state)
     btn_toggle_2.process(window,btn_toggle_2_state)
     btn_start.process(window)
+    
     try:
       if toggle1_state == True and vid1.is_playing == False:
         vid1.stop()
@@ -363,6 +369,7 @@ def display():
     wall1=pg.draw.rect(window,(235, 247, 247),(1095,0,5,1000))
     wall2=pg.draw.rect(window,(235, 247, 247),(395,0,5,1000))
     window.blit(text_surface, (30,500))
+    btn_pause.process(window)
     
 
 def impact(group):
@@ -401,6 +408,7 @@ shot_time = 40
 alian_shot_time = 0
 group_check = 1
 time_left_to_shoot = 0
+has_run = False
 
 
 def alian_shot(group):
@@ -436,6 +444,7 @@ while True:
       text_surface = my_font.render(f'Time Let To Shoot:{time_left_to_shoot}', False, (255, 255, 255))
 
       if not playing_pause:
+        has_run = False
         shot_time += 1
         alian_shot_time += 1
         pg.sprite.Group(green_group).update(alian_move_type, move_alian)
@@ -495,13 +504,21 @@ while True:
           player.back()
           display()
       else:
-        try:
-          for each in player_shot_group:
-            each.kill()
-          for each in alian_shot_group:
-            each.kill()
-        except:
-          pass
+        if has_run == False:
+          has_run = True
+          player_life -= 1
+          pg.sprite.Group(green_group).update(alian_move_type, move_alian,True)
+          pg.sprite.Group(red_group1).update(alian_move_type, move_alian,True)
+          pg.sprite.Group(red_group2).update(alian_move_type, move_alian,True)
+          pg.sprite.Group(blue_group1).update(alian_move_type, move_alian,True)
+          pg.sprite.Group(blue_group2).update(alian_move_type, move_alian,True)
+          try:
+            for each in player_shot_group:
+              each.kill()
+            for each in alian_shot_group:
+              each.kill()
+          except:
+            pass
 #^-----^----^-----^------^--------If Playing-----^----^-------^------^-----^  
 
 

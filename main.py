@@ -11,17 +11,11 @@ To do list:
     > 900 x 1028 H                < Current Length and Width
   - enemies+movement sequence     > DONE
   - barriers                      > DONE
-  - player                        > 75%
-  - enemy bullets                 > 75%
-  - player bullets                > 75%
-  - damage                        > 50%
+  - player                        > DONE
+  - enemy bullets                 > DONE
+  - player bullets                > DONE
+  - damage                        > DONE
   - win/lose                      > To Do
-  - Bonus Ship                    > To Do
-  - efx                           > To Do
-    > change icon                 < Not Set
-  - pause                         > To Do
-  - menu                          > CURRENT TASK
-  - keybinds                      > To Do
 
 '''
 
@@ -51,10 +45,11 @@ btn_toggle_2_state = '#ffffff'
 vid2 = Video("space_invaders_mp4s/alian1_move.mp4")
 vid1 = Video("space_invaders_mp4s/alian2_move.mp4")
 pg.font.init()
-my_font = pg.font.Font('slkscr.ttf', 30)
+my_font = pg.font.Font('slkscr.ttf', 40)
 playing_pause = False
 player_life = 3
 score = 0
+ending = False
 
 
 alian_b = pg.image.load('space_invaders_imgs/alian_blue.png')
@@ -113,8 +108,7 @@ player_life_group = pg.sprite.Group()
 alian_shot_group = pg.sprite.Group()
 
 def player_init():
-  global player_state, player
-  player_state = True
+  global player
   
   player = player_(725, 800, 44, 32, player_s)
   player_group.empty()
@@ -131,7 +125,7 @@ def player_life_check():
   if player_life == 2:
     player_life_sprite1 = player_(30, 800, 44, 32, player_s)
     player_life_group.add(player_life_sprite1)
-  if player_life == 1:
+  if player_life <= 1:
     pass
   
 def bar_group1_init():
@@ -273,8 +267,12 @@ def alian_blue_group2():
 
 
 def start():
-  global playing
+  global playing, ending, score, playing_pause, has_run
   playing = True
+  ending = False
+  score = 0
+  playing_pause = False
+  has_run = False
   player_init()
   bar_group1_init()
   bar_group2_init()
@@ -295,7 +293,7 @@ btn1 = Button(30, 30, 300, 100, 'EXIT', exit)
 btn_toggle_1 = Button(30, 200, 150, 100, f'Alians 1',toggle1)
 btn_toggle_2 = Button(180, 200, 150, 100, f'Alians 2', toggle2)
 btn_start = Button(30, 300, 300, 100, 'Start', start)
-btn_pause = Button(30, 500, 300, 100, 'Pause', pause)
+btn_restart = Button(595, 500, 300, 100, 'Restart', start)
 vid1.mute()
 vid2.mute()
 vid1.set_width(300)
@@ -305,7 +303,7 @@ vid2.set_height(150)
 
 
 def display():
-  global btn_toggle_1_state, btn_toggle_2_state, alian_move_type
+  global btn_toggle_1_state, btn_toggle_2_state, alian_move_type, my_font
   window.fill((26,26,34)) #Black background
   green_group.draw(window)
   red_group1.draw(window)
@@ -335,6 +333,7 @@ def display():
     vid1.stop()
     vid2.play()
 
+  my_font = pg.font.Font('slkscr.ttf', 30)
   btn1.process(window)
 
   
@@ -368,23 +367,42 @@ def display():
   else:
     wall1=pg.draw.rect(window,(235, 247, 247),(1095,0,5,1000))
     wall2=pg.draw.rect(window,(235, 247, 247),(395,0,5,1000))
-    window.blit(text_surface, (30,500))
-    btn_pause.process(window)
+    my_font = pg.font.Font('slkscr.ttf', 40)
+    temp_width = text_score.get_width()
+    window.blit(text_score, (745-(temp_width/2),20))
+  if ending == True:
+    btn_restart.process(window)
+    temp_width1 = text_end.get_width()
+    window.blit(text_end, (745-(temp_width1/2),400))
+    
     
 
 def impact(group):
   global score
   try:
     for each in player_shot_group:
-      red_colide= pg.sprite.spritecollide(each, group, False, collided=pg.sprite.collide_mask)  
-      if len(red_colide) >0:
-        red_colide[0].alive=False
-        temp_value = red_colide[0].return_value()
+      colide= pg.sprite.spritecollide(each, group, False, collided=pg.sprite.collide_mask)  
+      if len(colide) >0:
+        colide[0].alive=False
+        temp_value = colide[0].return_value()
         each.kill()
         score += temp_value
   except: 
     pass
+
+
+def player_impact():
+  global score, playing_pause
+  try:
+    for each in alian_shot_group:
+      colide= pg.sprite.spritecollide(each, player_group, False, collided=pg.sprite.collide_mask)  
+      if len(colide) >0:
+        playing_pause = True
+        each.kill()
+  except: 
+    pass
   
+
 def bar_impact(group,shot_group):
   try:
     for each in shot_group:
@@ -425,25 +443,26 @@ def alian_shot(group):
               alian_shot1 = bullet(tempx+18, tempy+32, 10, 28, alian_s1)
               alian_shot_group.add(alian_shot1)
               alian_shot_time = 0
-          else:
-            return False
+        else:
+          return False
     except:
       pass
 
 while True:
     display()
     
-    
+  
+
 #v----v-------v-------v-------v----If Playing-----v-------v--------v-------v 
     if playing:
-      
       if shot_time>40:
         time_left_to_shoot = 0
       else:
         time_left_to_shoot = (shot_time-40)*-1
-      text_surface = my_font.render(f'Time Let To Shoot:{time_left_to_shoot}', False, (255, 255, 255))
+      text_score = my_font.render(f'SCORE:{score}', False, (255, 255, 255))
 
       if not playing_pause:
+        player_impact()
         has_run = False
         shot_time += 1
         alian_shot_time += 1
@@ -459,8 +478,6 @@ while True:
           shot1 = bullet(player_x+18, 780, 10, 28, player_s1)
           player_shot_group.add(shot1)
           shot_time = 0
-
-      
 
         check = alian_shot(blue_group2)
         if check == False:
@@ -507,11 +524,6 @@ while True:
         if has_run == False:
           has_run = True
           player_life -= 1
-          pg.sprite.Group(green_group).update(alian_move_type, move_alian,True)
-          pg.sprite.Group(red_group1).update(alian_move_type, move_alian,True)
-          pg.sprite.Group(red_group2).update(alian_move_type, move_alian,True)
-          pg.sprite.Group(blue_group1).update(alian_move_type, move_alian,True)
-          pg.sprite.Group(blue_group2).update(alian_move_type, move_alian,True)
           try:
             for each in player_shot_group:
               each.kill()
@@ -519,6 +531,29 @@ while True:
               each.kill()
           except:
             pass
+          pg.display.update()
+          pg.time.delay(500)
+          player_init()
+          pg.sprite.Group(green_group).update(alian_move_type, move_alian,True)
+          pg.sprite.Group(red_group1).update(alian_move_type, move_alian,True)
+          pg.sprite.Group(red_group2).update(alian_move_type, move_alian,True)
+          pg.sprite.Group(blue_group1).update(alian_move_type, move_alian,True)
+          pg.sprite.Group(blue_group2).update(alian_move_type, move_alian,True)
+          display()
+          pg.display.update()
+          pg.time.delay(500)
+          player_life_check()
+          display()
+          if not player_life <= 0:
+            playing_pause = False
+            has_run == False
+          else:
+            ending = True
+            text_end = my_font.render(f'GAME OVER', False, (255, 255, 255))
+
+          
+          
+          
 #^-----^----^-----^------^--------If Playing-----^----^-------^------^-----^  
 
 

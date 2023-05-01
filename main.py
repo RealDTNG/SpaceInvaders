@@ -15,7 +15,7 @@ To do list:
   - enemy bullets                 > DONE
   - player bullets                > DONE
   - damage                        > DONE
-  - win/lose                      > To Do
+  - win/lose                      > 50%
 
 '''
 

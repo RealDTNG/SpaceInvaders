@@ -50,6 +50,7 @@ playing_pause = False
 player_life = 3
 score = 0
 ending = False
+winning = False
 
 
 alian_b = pg.image.load('space_invaders_imgs/alian_blue.png')
@@ -267,12 +268,13 @@ def alian_blue_group2():
 
 
 def start():
-  global playing, ending, score, playing_pause, has_run
+  global playing, ending, score, playing_pause, has_run, winning
   playing = True
   ending = False
   score = 0
   playing_pause = False
   has_run = False
+  winning = False
   player_init()
   bar_group1_init()
   bar_group2_init()
@@ -303,7 +305,7 @@ vid2.set_height(150)
 
 
 def display():
-  global btn_toggle_1_state, btn_toggle_2_state, alian_move_type, my_font
+  global btn_toggle_1_state, btn_toggle_2_state, alian_move_type, my_font, winning,text_win,text_end
   window.fill((26,26,34)) #Black background
   green_group.draw(window)
   red_group1.draw(window)
@@ -374,6 +376,10 @@ def display():
     btn_restart.process(window)
     temp_width1 = text_end.get_width()
     window.blit(text_end, (745-(temp_width1/2),400))
+  if winning == True:
+    btn_restart.process(window)
+    temp_width2 = text_win.get_width()
+    window.blit(text_win, (745-(temp_width2/2),400))
     
     
 
@@ -462,6 +468,9 @@ while True:
       text_score = my_font.render(f'SCORE:{score}', False, (255, 255, 255))
 
       if not playing_pause:
+        if score == 7500:
+          playing_pause == True
+          winning = True
         player_impact()
         has_run = False
         shot_time += 1
@@ -547,6 +556,8 @@ while True:
           if not player_life <= 0:
             playing_pause = False
             has_run == False
+          elif winning == True:
+            text_win = my_font.render(f'WINNER', False, (255, 255, 255))
           else:
             ending = True
             text_end = my_font.render(f'GAME OVER', False, (255, 255, 255))

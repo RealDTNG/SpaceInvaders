@@ -378,8 +378,7 @@ def display():
     window.blit(text_end, (745-(temp_width1/2),400))
   if winning == True:
     btn_restart.process(window)
-    temp_width2 = text_win.get_width()
-    window.blit(text_win, (745-(temp_width2/2),400))
+    window.blit(text_win, (745,400))
     
     
 
@@ -557,10 +556,10 @@ while True:
             playing_pause = False
             has_run == False
           elif winning == True:
-            text_win = my_font.render(f'WINNER', False, (255, 255, 255))
+            text_win = my_font.render('WINNER', False, (255, 255, 255))
           else:
             ending = True
-            text_end = my_font.render(f'GAME OVER', False, (255, 255, 255))
+            text_end = my_font.render('GAME OVER', False, (255, 255, 255))
 
           
           

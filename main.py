@@ -51,7 +51,7 @@ player_life = 3
 score = 0
 ending = False
 winning = False
-
+text_win = my_font.render('', False, (255, 255, 255))
 
 alian_b = pg.image.load('space_invaders_imgs/alian_blue.png')
 alian_g = pg.image.load('space_invaders_imgs/alian_green.png')
@@ -268,13 +268,14 @@ def alian_blue_group2():
 
 
 def start():
-  global playing, ending, score, playing_pause, has_run, winning
+  global playing, ending, score, playing_pause, has_run, winning, player_life
   playing = True
   ending = False
   score = 0
   playing_pause = False
   has_run = False
   winning = False
+  player_life = 3
   player_init()
   bar_group1_init()
   bar_group2_init()

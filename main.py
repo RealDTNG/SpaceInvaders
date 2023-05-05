@@ -134,60 +134,14 @@ def player_life_check():
     pass
   
   
-def bar_group1_init():
+def bar_group_init():
+  img_list=[top_center,top_right,top_left,middle_center,middle_left,middle_right,middle2_center,middle2_left,middle2_right,bottom_center,bottom_left,bottom_right]
   
-  bar1 = bar(663,670,176,96,top_center)
-  bar2 = bar(663,670,176,96,top_right)
-  bar3 = bar(663,670,176,96,top_left)
-  bar4 = bar(663,670,176,96,middle_center)
-  bar5 = bar(663,670,176,96,middle_left)
-  bar6 = bar(663,670,176,96,middle_right)
-  bar7 = bar(663,670,176,96,middle2_center)
-  bar8 = bar(663,670,176,96,middle2_left)
-  bar9 = bar(663,670,176,96,middle2_right)
-  bar10 = bar(663,670,176,96,bottom_center)
-  bar11 = bar(663,670,176,96,bottom_left)
-  bar12 = bar(663,670,176,96,bottom_right)
-  
-  bar_group1.add(bar1,bar2,bar3,bar4,bar5,bar6,bar7,bar8,bar9, bar10, bar11, bar12)
-  
-  
-def bar_group2_init():
-  
-  bar1 = bar(463,670,176,96,top_center)
-  bar2 = bar(463,670,176,96,top_right)
-  bar3 = bar(463,670,176,96,top_left)
-  bar4 = bar(463,670,176,96,middle_center)
-  bar5 = bar(463,670,176,96,middle_left)
-  bar6 = bar(463,670,176,96,middle_right)
-  bar7 = bar(463,670,176,96,middle2_center)
-  bar8 = bar(463,670,176,96,middle2_left)
-  bar9 = bar(463,670,176,96,middle2_right)
-  bar10 = bar(463,670,176,96,bottom_center)
-  bar11 = bar(463,670,176,96,bottom_left)
-  bar12 = bar(463,670,176,96,bottom_right)
-  
-  bar_group2.add(bar1,bar2,bar3,bar4,bar5,bar6,bar7,bar8,bar9, bar10, bar11, bar12)
-  
-  
-def bar_group3_init():
-  
-  bar1 = bar(863,670,176,96,top_center)
-  bar2 = bar(863,670,176,96,top_right)
-  bar3 = bar(863,670,176,96,top_left)
-  bar4 = bar(863,670,176,96,middle_center)
-  bar5 = bar(863,670,176,96,middle_left)
-  bar6 = bar(863,670,176,96,middle_right)
-  bar7 = bar(863,670,176,96,middle2_center)
-  bar8 = bar(863,670,176,96,middle2_left)
-  bar9 = bar(863,670,176,96,middle2_right)
-  bar10 = bar(863,670,176,96,bottom_center)
-  bar11 = bar(863,670,176,96,bottom_left)
-  bar12 = bar(863,670,176,96,bottom_right)
-  
-  bar_group3.add(bar1,bar2,bar3,bar4,bar5,bar6,bar7,bar8,bar9, bar10, bar11, bar12)
-
-
+  for img in img_list:
+    bar_group1.add(bar(663,670,176,96,img))
+    bar_group2.add(bar(463,670,176,96,img))
+    bar_group3.add(bar(863,670,176,96,img))
+    
 def alian_green_group():
   global green_g1,green_g2,green_g3,green_g4,green_g5,green_g6,green_g7,green_g8,green_g9,green_g10
 
@@ -290,9 +244,7 @@ def start():
   player_life = 3
   player_init()
   player_life_check()
-  bar_group1_init()
-  bar_group2_init()
-  bar_group3_init()
+  bar_group_init()
   alian_green_group()
   alian_red_group1()
   alian_red_group2()

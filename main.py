@@ -1,8 +1,8 @@
-# Dawson Hoyle
-# Start: 14/4/2023  End: //
-# "Space Invaders" like game
-
 '''
+ Dawson Hoyle
+ Start: 14/4/2023  End: 5/5/2-23
+ "Space Invaders" like game
+
 To do list:
 
   - exit btn (Class)              > DONE
@@ -16,6 +16,8 @@ To do list:
   - player bullets                > DONE
   - damage                        > DONE
   - win/lose                      > DONE
+  
+  IME DOENE RAHHHH
 
 '''
 
@@ -52,7 +54,6 @@ score = 0
 ending = False
 winning = False
 text_win = my_font.render('', False, (255, 255, 255))
-
 alian_b = pg.image.load('space_invaders_imgs/alian_blue.png')
 alian_g = pg.image.load('space_invaders_imgs/alian_green.png')
 alian_r = pg.image.load('space_invaders_imgs/alian_red.png')
@@ -60,10 +61,8 @@ alian_s = pg.image.load('space_invaders_imgs/alian_ship.png')
 alian_p = pg.image.load('space_invaders_imgs/alian_pop.png')
 alian_s1 = pg.image.load('space_invaders_imgs/alian_shot_1.png')
 alian_s3 = pg.image.load('space_invaders_imgs/alian_shot_3.png')
-
 player_s = pg.image.load('space_invaders_imgs/player_ship.png')
 player_s1 = pg.image.load('space_invaders_imgs/player_shot.png')
-
 top_center = pg.image.load('space_invaders_imgs/top_center.png')
 top_right = pg.image.load('space_invaders_imgs/top_right.png')
 top_left = pg.image.load('space_invaders_imgs/top_left.png')
@@ -82,10 +81,13 @@ def exit():
   pg.quit() 
   sys.exit()
   
+  
 def toggle1():
   global toggle1_state, toggle2_state
   toggle1_state = True
   toggle2_state = False
+  
+  
 def toggle2():
   global toggle1_state, toggle2_state
   toggle1_state = False
@@ -108,12 +110,14 @@ player_shot_group = pg.sprite.Group()
 player_life_group = pg.sprite.Group()
 alian_shot_group = pg.sprite.Group()
 
+
 def player_init():
   global player
   
   player = player_(725, 800, 44, 32, player_s)
   player_group.empty()
   player_group.add(player)
+  
   
 def player_life_check():
   global player_life, player_life_sprite1,player_life_sprite2
@@ -128,6 +132,7 @@ def player_life_check():
     player_life_group.add(player_life_sprite1)
   if player_life <= 1:
     pass
+  
   
 def bar_group1_init():
   
@@ -146,6 +151,7 @@ def bar_group1_init():
   
   bar_group1.add(bar1,bar2,bar3,bar4,bar5,bar6,bar7,bar8,bar9, bar10, bar11, bar12)
   
+  
 def bar_group2_init():
   
   bar1 = bar(463,670,176,96,top_center)
@@ -163,6 +169,7 @@ def bar_group2_init():
   
   bar_group2.add(bar1,bar2,bar3,bar4,bar5,bar6,bar7,bar8,bar9, bar10, bar11, bar12)
   
+  
 def bar_group3_init():
   
   bar1 = bar(863,670,176,96,top_center)
@@ -179,6 +186,7 @@ def bar_group3_init():
   bar12 = bar(863,670,176,96,bottom_right)
   
   bar_group3.add(bar1,bar2,bar3,bar4,bar5,bar6,bar7,bar8,bar9, bar10, bar11, bar12)
+
 
 def alian_green_group():
   global green_g1,green_g2,green_g3,green_g4,green_g5,green_g6,green_g7,green_g8,green_g9,green_g10
@@ -198,6 +206,7 @@ def alian_green_group():
   green_group.empty()
   green_group.add(green_g1,green_g2,green_g3,green_g4,green_g5,green_g6,green_g7,green_g8,green_g9,green_g10)
 
+
 def alian_red_group1():
   global red_g1,red_g2,red_g3,red_g4,red_g5,red_g6,red_g7,red_g8,red_g9,red_g10
 
@@ -214,6 +223,7 @@ def alian_red_group1():
 
   red_group1.empty()
   red_group1.add(red_g1,red_g2,red_g3,red_g4,red_g5,red_g6,red_g7,red_g8,red_g9,red_g10)
+
 
 def alian_red_group2():
   global red_gg1,red_gg2,red_gg3,red_gg4,red_gg5,red_gg6,red_gg7,red_gg8,red_gg9,red_gg10
@@ -232,6 +242,7 @@ def alian_red_group2():
   red_group2.empty()
   red_group2.add(red_gg1,red_gg2,red_gg3,red_gg4,red_gg5,red_gg6,red_gg7,red_gg8,red_gg9,red_gg10)
 
+
 def alian_blue_group1():
   global blue_g1,blue_g2,blue_g3,blue_g4,blue_g5,blue_g6,blue_g7,blue_g8,blue_g9,blue_g10
 
@@ -248,6 +259,7 @@ def alian_blue_group1():
   
   blue_group1.empty()
   blue_group1.add(blue_g1,blue_g2,blue_g3,blue_g4,blue_g5,blue_g6,blue_g7,blue_g8,blue_g9,blue_g10)
+
 
 def alian_blue_group2():
   global blue_gg1,blue_gg2,blue_gg3,blue_gg4,blue_gg5,blue_gg6,blue_gg7,blue_gg8,blue_gg9,blue_gg10
@@ -288,6 +300,7 @@ def start():
   alian_blue_group2()
   player_life_check()
 
+
 def pause():
   global playing_pause
   playing_pause = True
@@ -322,8 +335,6 @@ def display():
   bar_group3.draw(window)
   player_life_group.draw(window)
   
-  
-  
   if toggle1_state == True:
     btn_toggle_1_state = '#34eb64'
     btn_toggle_2_state = '#e01f36'
@@ -339,7 +350,6 @@ def display():
 
   my_font = pg.font.Font('slkscr.ttf', 30)
   btn1.process(window)
-
   
   if not playing:
     btn_toggle_1.process(window,btn_toggle_1_state)
@@ -455,11 +465,10 @@ def alian_shot(group):
     except:
       pass
 
+
 while True:
     display()
     
-  
-
 #v----v-------v-------v-------v----If Playing-----v-------v--------v-------v 
     if playing:
       if shot_time>40:
@@ -467,11 +476,11 @@ while True:
       else:
         time_left_to_shoot = (shot_time-40)*-1
       text_score = my_font.render(f'SCORE:{score}', False, (255, 255, 255))
-
-      if not playing_pause:
-        if score == 7500:
+      if score == 7500:
           playing_pause == True
           winning = True
+      if not playing_pause:
+        
         player_impact()
         has_run = False
         shot_time += 1
@@ -563,11 +572,7 @@ while True:
             ending = True
             text_end = my_font.render('GAME OVER', False, (255, 255, 255))
 
-          
-          
-          
 #^-----^----^-----^------^--------If Playing-----^----^-------^------^-----^  
-
 
     for event in pg.event.get():
       if event.type == pg.QUIT:# if user  QUIT then the screen will close 

@@ -15,7 +15,7 @@ To do list:
   - enemy bullets                 > DONE
   - player bullets                > DONE
   - damage                        > DONE
-  - win/lose                      > 50%
+  - win/lose                      > DONE
 
 '''
 
@@ -277,6 +277,7 @@ def start():
   winning = False
   player_life = 3
   player_init()
+  player_life_check()
   bar_group1_init()
   bar_group2_init()
   bar_group3_init()
